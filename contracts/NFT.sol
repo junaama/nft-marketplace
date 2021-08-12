@@ -18,7 +18,7 @@ contract NFT is ERC721URIStorage {
     address contractAddress;
     // Setting contract address
     // Deploying the market, then the contract
-    constructor(address marketplaceAddress) ERC721("Wordain Tokens", "WORD"){
+    constructor(address marketplaceAddress) ERC721("NFT Marketplace", "METT"){
         contractAddress = marketplaceAddress;
     }
     // For minting new tokens
