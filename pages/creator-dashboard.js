@@ -41,6 +41,9 @@ export default function CreatorDashboard() {
         owner: i.owner,
         sold: i.sold,
         image: meta.data.image,
+        displayName: meta.data.holder.displayName,
+        metaUrl: meta.data.holder.metaurl,
+        message: meta.data.holder.message
       }
       return item
     }))
@@ -81,6 +84,8 @@ export default function CreatorDashboard() {
                       <div className="p-4 bg-black">
                         <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
                       </div>
+                      <p><a href={nft.metaurl}> {nft.displayName}</a> owns this NFT.</p>
+                      <p>{nft.message}</p>
                     </div>
                   ))
                 }

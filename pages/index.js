@@ -28,10 +28,12 @@ export default function Home() {
     *  map over items returned from smart contract and format 
     *  them as well as fetch their token metadata
     */
+   
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       console.log("meta: ", meta)
+
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
         price,
@@ -41,6 +43,9 @@ export default function Home() {
         image: meta.data.image,
         name: meta.data.name,
         description: meta.data.description,
+        displayName: meta.data.holder.displayName,
+        metaUrl: meta.data.holder.metaurl,
+        message: meta.data.holder.message
       }
       return item
     }))
@@ -77,6 +82,8 @@ export default function Home() {
                   <div style={{ height: '70px', overflow: 'hidden' }}>
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
+                  <p><a href={nft.metaurl}> {nft.displayName}</a> owns {nft.name}.</p>
+                  <p>{nft.message}</p>
                 </div>
                 <div className="p-4 bg-black">
                   <p className="text-2xl mb-4 font-bold text-white">{nft.price} ETH</p>

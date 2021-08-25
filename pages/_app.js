@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import Link from 'next/link'
+import Web3Button from '../components/Web3Button'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,6 +16,8 @@ function MyApp({ Component, pageProps }) {
           <Link href="/create-item"><a className="mr-6 text-pink-500">Sell NFT</a></Link>
           <Link href="/my-assets"><a className="mr-6 text-pink-500">My NFTs</a></Link>
           <Link href="/creator-dashboard"><a className="mr-6 text-pink-500">Creator Dashboard</a></Link>
+          <Web3Button/>
+
         </div>
       </nav>
       <Component {...pageProps} />

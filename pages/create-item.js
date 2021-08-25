@@ -16,7 +16,8 @@ import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null)
-  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
+  const [formInput, updateFormInput] = useState({ price: '', name: '', description: '',  displayName: '', metaurl: '', message: ''})
+  const [mutableFormInput, updateMutableFormInput] = useState({displayName: "", metaUrl: "", message: ""})
   const router = useRouter()
 
   async function onChange(e) {
@@ -35,11 +36,13 @@ export default function CreateItem() {
     }  
   }
   async function createMarket() {
-    const { name, description, price } = formInput
+    console.log("hello")
+    const { name, description, price, displayName, metaurl, message } = formInput
     if (!name || !description || !price || !fileUrl) return
     /* first, upload to IPFS */
+    const holderObject = {displayName, metaurl, message}
     const data = JSON.stringify({
-      name, description, image: fileUrl
+      name, description, image: fileUrl, holder: holderObject
     })
     try {
       const added = await client.add(data)
@@ -54,6 +57,7 @@ export default function CreateItem() {
   }
 
   async function createSale(url) {
+    console.log("HELLO?")
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)    
@@ -85,22 +89,42 @@ export default function CreateItem() {
           placeholder="Asset Name"
           className="mt-8 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
+          required
         />
         <textarea
           placeholder="Asset Description"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
+          required
         />
         <input
           placeholder="Asset Price in Eth"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
+          required
+        />
+        
+        <input
+          placeholder="Meta Name"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, displayName: e.target.value })}
+        />
+        <input
+          placeholder="Meta URL"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, metaurl: e.target.value })}
+        />
+        <input
+          placeholder="Meta Message"
+          className="mt-2 border rounded p-4"
+          onChange={e => updateFormInput({ ...formInput, message: e.target.value })}
         />
         <input
           type="file"
           name="Asset"
           className="my-4"
           onChange={onChange}
+          required
         />
         {
           fileUrl && (

@@ -39,6 +39,9 @@ export default function MyAssets() {
         seller: i.seller,
         owner: i.owner,
         image: meta.data.image,
+        displayName: meta.data.holder.displayName,
+        message: meta.data.holder.message,
+        metaurl: meta.data.holder.metaurl
       }
       return item
     }))
@@ -46,6 +49,7 @@ export default function MyAssets() {
     setLoadingState('loaded') 
   }
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets owned</h1>)
+  
   return (
     <div className="flex justify-center">
       <div className="p-4">
@@ -57,6 +61,8 @@ export default function MyAssets() {
                 <div className="p-4 bg-black">
                   <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
                 </div>
+                <p><a href={nft.metaurl}> {nft.displayName}</a> owns this NFT.</p>
+                  <p>{nft.message}</p>
               </div>
             ))
           }
