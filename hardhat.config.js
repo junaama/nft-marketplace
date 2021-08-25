@@ -28,7 +28,7 @@ module.exports = {
       accounts: [privateKey]
     },
     matic: {
-      url: "https://rpc-mainnet.maticvigil.com",
+      url: "https://rpc-mainnet.matic.network",
       accounts: [privateKey]
     },
     ropsten: {
